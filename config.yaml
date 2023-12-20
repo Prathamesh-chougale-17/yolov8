@@ -1,0 +1,10 @@
+path: D:\study\yolov8
+
+train: obj_train_data
+
+val: obj_val_data
+
+#CLASSES
+
+names: 
+ 0: vehicle
