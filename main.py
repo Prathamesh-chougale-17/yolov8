@@ -2,7 +2,8 @@ from ultralytics import YOLO
 
 # from ultralytics.yolo.v8.detect.predict import Detection
 # Load a model
-model = YOLO("yolov8n.pt")  # build a new model from scratch
+model = YOLO("yolov8l.pt")  # build a new model from scratch
+import cv2
 
 # Use the model
 # results = model.train(data="config.yaml", epochs=1)
