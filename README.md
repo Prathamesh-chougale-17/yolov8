@@ -9,7 +9,7 @@ I have tested the yolov8 with inbuild dataset of YOLOv8. Which are yolov8n.pt, y
 ## Requirements
 * conda Environment
   install Anaconda from [here](https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Windows-x86_64.exe)
-* Python 3.8 or later with all [requirements.txt]
+* Python 3.8 or later 
 ```terminal
   conda create -n yolov8 python=3.9
 ```
