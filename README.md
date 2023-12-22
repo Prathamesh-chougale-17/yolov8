@@ -13,7 +13,7 @@ I have tested the yolov8 with inbuild dataset of YOLOv8. Which are yolov8n.pt, y
 ```terminal
   conda create -n yolov8 python=3.9
 ```
-* Install CUDA 11.1 from [here](https://developer.download.nvidia.com/compute/cuda/12.3.1/local_installers/cuda_12.3.1_546.12_windows.exe) for Windows 10
+* Install CUDA 12.3 from [here](https://developer.download.nvidia.com/compute/cuda/12.3.1/local_installers/cuda_12.3.1_546.12_windows.exe) for Windows 10
 * Install pytorch 
 ```terminal
   conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
