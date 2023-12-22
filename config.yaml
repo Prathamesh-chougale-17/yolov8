@@ -1,10 +1,10 @@
-path: D:\study\yolov8
+path: D:\study\yolov8\data
 
-train: obj_train_data
+train: images\train
 
-val: obj_val_data
+val: images\train
 
 #CLASSES
 
 names: 
- 0: vehicle
+  0: vehicle
