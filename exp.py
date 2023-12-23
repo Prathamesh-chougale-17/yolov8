@@ -1,4 +1,4 @@
-import cv2
+# import cv2
 from ultralytics import YOLO
 
 
@@ -6,7 +6,8 @@ from ultralytics import YOLO
 model = YOLO("yolov8l.pt")
 
 # IP Webcam stream URL
-url = "http://192.168.0.106:8080/video"
+# url = "http://192.168.0.106:8080/video"
+url = "http://192.168.0.105:8080/video"
 
 # Open video stream
 results = model.predict(source=url, show=True, stream=True)
