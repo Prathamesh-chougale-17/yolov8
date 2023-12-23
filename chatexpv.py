@@ -6,7 +6,6 @@ model = YOLO("yolov8l.pt")
 
 
 def dark_channel(im, size):
-    # Compute the dark channel
     b, g, r = cv2.split(im)
     min_channel = cv2.min(cv2.min(r, g), b)
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (size, size))
@@ -15,7 +14,6 @@ def dark_channel(im, size):
 
 
 def atmospheric_light(im, dark, percent):
-    # Calculate the atmospheric light
     im_flat = im.reshape(im.shape[0] * im.shape[1], 3)
     dark_flat = dark.flatten()
     indices = dark_flat.argsort()[-int(im_flat.shape[0] * percent) :]
@@ -24,22 +22,19 @@ def atmospheric_light(im, dark, percent):
 
 
 def transmission(im, atmospheric_light, omega, size):
-    # Calculate the transmission
     im = im.astype(np.float64) / atmospheric_light
     transmission = 1 - omega * dark_channel(im, size)
     return transmission
 
 
 def refine_transmission(transmission, im, size):
-    # Refine the transmission map
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (size, size))
     transmission = cv2.morphologyEx(transmission, cv2.MORPH_CLOSE, kernel)
     return transmission
 
 
 def recover_scene(im, transmission, atmospheric_light):
-    # Recover the scene radiance
-    transmission = np.maximum(transmission, 0.1)  # Ensure transmission is not too small
+    transmission = np.maximum(transmission, 0.1)
     im = im.astype(np.float64)
     J = (im - atmospheric_light) / transmission[:, :, np.newaxis] + atmospheric_light
     J = np.clip(J, 0, 255)
@@ -47,20 +42,16 @@ def recover_scene(im, transmission, atmospheric_light):
 
 
 def defog_webcam():
-    cap = cv2.VideoCapture(0)  # Change to the appropriate camera index if needed
+    cap = cv2.VideoCapture(0)
 
     while True:
         ret, frame = cap.read()
         if not ret:
             break
-
-        # Parameters for defogging
         omega = 0.95
         dark_channel_size = 15
         atmospheric_light_percent = 0.1
         transmission_refine_size = 3
-
-        # Perform defogging
         dark = dark_channel(frame, dark_channel_size)
         atm_light = atmospheric_light(frame, dark, atmospheric_light_percent)
         transmission_map = transmission(frame, atm_light, omega, dark_channel_size)
@@ -69,18 +60,16 @@ def defog_webcam():
         )
         defogged_frame = recover_scene(frame, transmission_map, atm_light)
 
-        # Display the result
         cv2.imshow("Original", frame)
         cv2.imshow("Defogged", defogged_frame)
         url = defogged_frame
         results = model.predict(source=url, show=True, stream=True)
         for r in results:
-            boxes = r.boxes  # Boxes object for bbox outputs
-            masks = r.masks  # Masks object for segment masks outputs
-            probs = r.probs  # Class probabilities for classification outputs
+            boxes = r.boxes
+            masks = r.masks
+            probs = r.probs
 
         print(results)
-        # Break the loop if 'q' key is pressed
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
 

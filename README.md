@@ -22,7 +22,10 @@ Additionally for camera inference:
 ```terminal
   conda install -c conda-forge opencv
 ```
-
+To run the project:
+```terminal
+  python chatexpv.py
+  ```
 ## Thanks for visiting my repository.
 ## Prathamesh Chougale
 
