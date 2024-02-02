@@ -41,6 +41,7 @@ def recover_scene(im, transmission, atmospheric_light):
     return J.astype(np.uint8)
 
 
+# url = "http://192.168.0.106:8080/video"
 def defog_webcam():
     cap = cv2.VideoCapture(0)
 
